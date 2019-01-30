@@ -1,16 +1,16 @@
 # Koa response V2
 
-基于koa封装的统一json数据返回格式，[v1版本在这里查看](./response-v1.md)
+基于koa封装的统一json数据返回格式，[v1版本在这里查看](./response-v1.md)
 
 **优点**：使用简洁，完全实现koa中间件形式，通过bind注入，注册一次即可全局使用
 
 **缺点**：不具备ts语法的清晰提示
 
-## 示例代码
+## 示例代码
 
 **`apiError.ts`**
 
-> api错误定义类，定义code与msg
+> api错误定义类，定义code与msg
 
 ``` ts
 const ApiErrorName = {} as any;
@@ -67,7 +67,7 @@ export { success, error };
 
 **`response.ts`**
 
-> middleware中间件，在app.ts中注册使用
+> middleware中间件，在app.ts中注册使用
 
 ``` ts
 import { ApiResponse } from '../utils';
@@ -84,7 +84,7 @@ export default response;
 
 **`app.ts`**
 
-> 应用入口文件，部分代码
+> 应用入口文件，部分代码
 
 ``` ts
 import * as Koa from 'koa';
@@ -95,7 +95,7 @@ const app = new Koa();
 
 const port = process.env.SERVER_PORT || 3000;
 
-// 注册响应中间件（核心）
+// 注册响应中间件（核心）
 app.use(response);
 
 app.use(router.routes()).use(router.allowedMethods());
@@ -113,7 +113,7 @@ import { ApiError } from '../utils';
 /** success(msg?: string, data?: any): Promise<void> */
 public static demoSuccess = async (ctx: any) => {
   const data = {
-    "username": "alonez",
+    "username": "alonez",
     "address": "四川省成都市"
   };
   ctx.success("请求成功", data);
@@ -133,7 +133,7 @@ public static demoError = async (ctx: any) => {
   "code": 0,
   "msg": "请求成功",
   "data": "{
-    "username": "alonez",
+    "username": "alonez",
     "address": "四川省成都市"
   }"
 }
