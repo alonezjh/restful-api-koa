@@ -14,7 +14,11 @@
     "lint": "tslint -p tsconfig.json"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "mysql2": "^1.6.4",
     "sequelize": "^4.42.0"
