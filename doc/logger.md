@@ -15,7 +15,7 @@ yarn add log4js
 ├── middlewares             # 中间件目录
 │   ├── index.ts          
 │   ├── logger              # 日志中间件
-│   │   ├── config.ts        # log4js配置
+│   │   ├── config.ts       # log4js配置
 │   │   ├── formatData.ts   # 格式化输出日志内容模版
 │   │   └── index.ts        # 初始化
 ```
@@ -36,7 +36,7 @@ const port = process.env.SERVER_PORT;
 // 使用日志中间件
 app.use(loggerInit());
 
-// 手模拟500错误
+// 手动模拟500错误
 app.use(async (ctx, next) => {
   ctx.throw(500);
   await next();
