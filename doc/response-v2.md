@@ -6,6 +6,18 @@
 
 **缺点**：不具备ts语法的清晰提示
 
+## 目录结构
+
+``` bash
+├── middlewares
+│   ├── index.ts
+│   ├── logger
+│   └── response
+│       ├── apiError.ts     # 错误码定义
+│       ├── apiResponse.ts  # 返回方法封装
+│       └── index.ts        # 绑定中间件
+```
+
 ## 示例代码
 
 **`apiError.ts`**
@@ -13,15 +25,15 @@
 > api错误定义类，定义code与msg
 
 ``` ts
-const ApiErrorName = {} as any;
+const apiError = {} as any;
 
 /** { code: -1, msg: "系统未知错误" } */
-ApiErrorName.ERROR_UNKNOWN = { code: -10000, msg: "系统未知错误" };
+apiError.ERROR_UNKNOWN = { code: -10000, msg: "系统未知错误" };
 
 /** { code: -10001, msg: "用户已存在" } */
-ApiErrorName.ERROR_USER_EXISTED = { code: -10001, msg: "用户已存在" };
+apiError.ERROR_USER_EXISTED = { code: -10001, msg: "用户已存在" };
 
-export default ApiErrorName;
+export default apiError;
 
 ```
 
@@ -65,16 +77,21 @@ export { success, error };
 
 ```
 
-**`response.ts`**
+**`index.ts`**
 
 > middleware中间件，在app.ts中注册使用
 
 ``` ts
-import { ApiResponse } from '../utils';
+import apiError from './apiError';
+import { success, error } from './apiResponse';
 
 const response = async (ctx, next) => {
-  ctx.success = ApiResponse.success.bind(null, ctx);
-  ctx.error = ApiResponse.error.bind(null, ctx);
+  // 绑定success方法
+  ctx.success = success.bind(null, ctx);
+  // 绑定error方法
+  ctx.error = error.bind(null, ctx);
+  // 绑定错误码数据
+  ctx.apiError = apiError;
   await next();
 };
 
@@ -108,8 +125,6 @@ app.listen(port);
 在controller类的返回方法中根据需求调用success或error方法
    
 ``` ts
-import { ApiError } from '../utils';
-
 /** success(msg?: string, data?: any): Promise<void> */
 public static demoSuccess = async (ctx: any) => {
   const data = {
@@ -121,7 +136,7 @@ public static demoSuccess = async (ctx: any) => {
 
 /** error(errName: IApiError): Promise<void> */
 public static demoError = async (ctx: any) => {
-  ctx.error(ctx, ApiError.ERROR_USER_EXISTED);
+  ctx.error(ctx.apiError.ERROR_USER_EXISTED);
 }
 ```
 
