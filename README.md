@@ -5,6 +5,8 @@
 
 - [response中间件开发文档](./doc/response-v2.md)
 
+- [logger中间件开发文档](./doc/logger.md)
+
 ## 已集成服务
 
 `dotenv` [官方文档](https://github.com/motdotla/dotenv)
