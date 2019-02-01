@@ -9,7 +9,7 @@
 ``` bash
 yarn add log4js
 ```
-2. 在middlewares中间件目录下创建logger目录，[这里查看代码](../src/middlewares/logger)
+2. 在middlewares中间件目录下创建logger目录
 
 ``` bash
 ├── middlewares             # 中间件目录
