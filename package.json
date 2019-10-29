@@ -22,7 +22,7 @@
     "koa-router": "^7.4.0",
     "log4js": "^4.0.1",
     "mysql2": "^1.6.4",
-    "sequelize": "^4.42.0"
+    "sequelize": "^5.15.1"
   },
   "devDependencies": {
     "@types/koa": "^2.0.48",
